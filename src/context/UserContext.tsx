@@ -5,6 +5,8 @@ export interface User {
   name: string;
   lastName: string;
   birthDay: string;
+  documentNumber: string;
+  phoneNumber: string;
 }
 
 // Define the structure of the plan data

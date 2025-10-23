@@ -16,7 +16,8 @@ const Summary: React.FC = () => {
       <div style={{ border: '1px solid #ccc', padding: '1rem', margin: '1rem 0' }}>
         <h2>User Information</h2>
         <p><strong>Name:</strong> {user.name} {user.lastName}</p>
-        <p><strong>Date of Birth:</strong> {user.birthDay}</p>
+        <p><strong>Document Number:</strong> {user.documentNumber}</p>
+        <p><strong>Phone Number:</strong> {user.phoneNumber}</p>
       </div>
 
       <div style={{ border: '1px solid #ccc', padding: '1rem', margin: '1rem 0' }}>
