@@ -15,7 +15,6 @@ const Plans: React.FC = () => {
   const { user } = useUser();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selection, setSelection] = useState<string | null>(null);
-  const [filteredPlans, setFilteredPlans] = useState<Plan[]>([]);
 
   // Fetch plans on component mount
   useEffect(() => {
@@ -31,34 +30,32 @@ const Plans: React.FC = () => {
     fetchPlans();
   }, []);
 
-  // Filter plans based on selection
-  useEffect(() => {
-    if (!selection) {
-      setFilteredPlans([]);
-      return;
-    }
-
-    if (selection === 'forMe' && user) {
-      const getAge = (birthDay: string): number => {
-        const birthDate = new Date(birthDay);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          age--;
-        }
-        return age;
-      };
-      const userAge = getAge(user.birthDay);
-      setFilteredPlans(plans.filter(plan => userAge < plan.age));
-    } else if (selection === 'forSomeoneElse') {
-      setFilteredPlans(plans);
-    }
-  }, [selection, plans, user]);
-
   const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelection(event.target.value);
   };
+
+  const getAge = (birthDay: string): number => {
+    const birthDate = new Date(birthDay);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
+  // Determine which plans to show based on the current selection
+  let plansToShow: Plan[] = [];
+  if (selection === 'forMe' && user) {
+    const userAge = getAge(user.birthDay);
+    plansToShow = plans.filter(plan => userAge <= plan.age);
+  } else if (selection === 'forSomeoneElse') {
+    plansToShow = plans.map(plan => ({
+      ...plan,
+      price: plan.price * 0.95,
+    }));
+  }
 
   const goToSummary = () => {
     navigate("/summary");
@@ -91,10 +88,10 @@ const Plans: React.FC = () => {
       </div>
 
       <div>
-        {filteredPlans.map(plan => (
+        {plansToShow.map(plan => (
           <div key={plan.name} style={{ border: '1px solid #ccc', padding: '1rem', margin: '1rem 0' }}>
             <h2>{plan.name}</h2>
-            <p>Price: ${plan.price}</p>
+            <p>Price: ${plan.price.toFixed(2)}</p>
             <ul>
               {plan.description.map((desc, index) => (
                 <li key={index}>{desc}</li>
