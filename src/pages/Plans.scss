@@ -1,5 +1,5 @@
 .plans {
-  max-width: 1200px;
+  max-width: 928px;
   margin: 0 auto;
   padding: 2rem 1rem;
 
@@ -31,8 +31,6 @@
     padding: 1.5rem;
     cursor: pointer;
     position: relative;
-
-    input { display: none; }
 
     &--active {
       border-color: #000;

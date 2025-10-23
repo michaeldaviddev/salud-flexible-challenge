@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useUser } from '../context/UserContext';
+import './Home.scss';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { setUser } = useUser();
 
+  const [documentType, setDocumentType] = useState('DNI');
   const [documentNumber, setDocumentNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [policy1, setPolicy1] = useState(false);
@@ -24,9 +26,7 @@ const Home: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
       const response = await fetch('https://rimac-front-end-challenge.netlify.app/api/user.json');
@@ -45,57 +45,54 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
-      <span>Seguro Salud Flexible</span>
-      <h1>Creado para ti y tu familia</h1>
-      <p>Tú eliges cuánto pagar. Ingresa tus datos, cotiza y recibe nuestra asesoría. 100% online.</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="documentNumber">Nro. de documento</label>
-          <input
-            id="documentNumber"
-            type="text"
-            placeholder="Nro. de documento"
-            value={documentNumber}
-            onChange={(e) => setDocumentNumber(e.target.value)}
-          />
-          {errors.documentNumber && <p style={{ color: 'red' }}>{errors.documentNumber}</p>}
-        </div>
-        <div>
-          <label htmlFor="phoneNumber">Celular</label>
-          <input
-            id="phoneNumber"
-            type="text"
-            placeholder="Celular"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          {errors.phoneNumber && <p style={{ color: 'red' }}>{errors.phoneNumber}</p>}
-        </div>
-        <div>
-          <label>
+    <div className="home">
+      <div className="home__content">
+        <div className="home__badge">Seguro Salud Flexible</div>
+        <h1 className="home__title">Creado para ti y tu familia</h1>
+        <p className="home__description">
+          Tú eliges cuánto pagar. Ingresa tus datos, cotiza y recibe nuestra asesoría. 100% online.
+        </p>
+
+        <form className="home__form" onSubmit={handleSubmit}>
+          <div className="home__input-group">
             <input
-              type="checkbox"
-              checked={policy1}
-              onChange={(e) => setPolicy1(e.target.checked)}
+              className="home__input"
+              type="text"
+              placeholder="Nro. de documento"
+              value={documentNumber}
+              onChange={(e) => setDocumentNumber(e.target.value)}
             />
-            Acepto la Política de Privacidad
-          </label>
-          {errors.policy1 && <p style={{ color: 'red' }}>{errors.policy1}</p>}
-        </div>
-        <div>
-          <label>
+            {errors.documentNumber && <span className="home__error">{errors.documentNumber}</span>}
+          </div>
+
+          <div className="home__input-group">
             <input
-              type="checkbox"
-              checked={policy2}
-              onChange={(e) => setPolicy2(e.target.checked)}
+              className="home__input"
+              type="text"
+              placeholder="Celular"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
-            Acepto la Política de Comunicaciones Comerciales
+            {errors.phoneNumber && <span className="home__error">{errors.phoneNumber}</span>}
+          </div>
+
+          <label className="home__checkbox">
+            <input type="checkbox" checked={policy1} onChange={(e) => setPolicy1(e.target.checked)} />
+            <span>Acepto la Política de Privacidad</span>
           </label>
-          {errors.policy2 && <p style={{ color: 'red' }}>{errors.policy2}</p>}
-        </div>
-        <button type="submit">Cotiza aquí</button>
-      </form>
+          {errors.policy1 && <span className="home__error">{errors.policy1}</span>}
+
+          <label className="home__checkbox">
+            <input type="checkbox" checked={policy2} onChange={(e) => setPolicy2(e.target.checked)} />
+            <span>Acepto la Política Comunicaciones Comerciales</span>
+          </label>
+          {errors.policy2 && <span className="home__error">{errors.policy2}</span>}
+
+          <a href="#" className="home__link">Aplican Términos y Condiciones.</a>
+
+          <button className="home__button" type="submit">Cotiza aquí</button>
+        </form>
+      </div>
     </div>
   );
 };
