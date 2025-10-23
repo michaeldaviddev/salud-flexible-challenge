@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useUser } from '../context/UserContext';
 
 const Plans: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
 
   const goToSummary = () => {
     navigate("/summary");
@@ -10,9 +12,8 @@ const Plans: React.FC = () => {
   return (
     <div>
       <h1>Plans Page</h1>
-      <button
-        onClick={goToSummary}
-      >
+      {user && <p>Welcome, {user.name}</p>}
+      <button onClick={goToSummary}>
         Go to Summary
       </button>
     </div>
