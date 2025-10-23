@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Plans from "./pages/Plans";
 import Summary from "./pages/Summary";
 import { UserProvider } from "./context/UserContext";
-import './App.css'
+import './App.scss'
 
 function App() {
   return (
