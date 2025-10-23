@@ -1,0 +1,137 @@
+.plans {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  &__options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  &__option {
+    display: block;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    position: relative;
+
+    input { display: none; }
+
+    &--active {
+      border-color: #000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+  }
+
+  &__option-title {
+    display: block;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__option-text {
+    display: block;
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  &__card {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+  }
+
+  &__badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #00f4e2, #00d98d);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  &__card-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  &__card-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  &__card-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  &__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+
+    li {
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      position: relative;
+
+      &::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #00d98d;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    background: #ff1763;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    padding: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      background: #e0145a;
+    }
+  }
+}

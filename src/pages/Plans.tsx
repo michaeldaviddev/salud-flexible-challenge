@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useUser } from '../context/UserContext';
 import type { Plan } from '../context/UserContext';
+import './Plans.scss';
 
 const Plans: React.FC = () => {
   const navigate = useNavigate();
@@ -54,43 +55,35 @@ const Plans: React.FC = () => {
   }
 
   return (
-    <div>
-      {user && <h1>{user.name} ¿Para quién deseas cotizar?</h1>}
-      <p>Selecciona la opción que se ajuste más a tus necesidades.</p>
+    <div className="plans">
+      {user && <h1 className="plans__title">{user.name} ¿Para quién deseas cotizar?</h1>}
+      <p className="plans__subtitle">Selecciona la opción que se ajuste más a tus necesidades.</p>
 
-      <div>
-        <label>
-          <input
-            type="radio"
-            value="forMe"
-            checked={selection === 'forMe'}
-            onChange={handleSelectionChange}
-          />
-          Para mí
+      <div className="plans__options">
+        <label className={`plans__option ${selection === 'forMe' ? 'plans__option--active' : ''}`}>
+          <input type="radio" value="forMe" checked={selection === 'forMe'} onChange={handleSelectionChange} />
+          <span className="plans__option-title">Para mí</span>
+          <span className="plans__option-text">Cotiza tu seguro de salud y agrega familiares si así lo deseas.</span>
         </label>
-        <label>
-          <input
-            type="radio"
-            value="forSomeoneElse"
-            checked={selection === 'forSomeoneElse'}
-            onChange={handleSelectionChange}
-          />
-          Para alguien más
+
+        <label className={`plans__option ${selection === 'forSomeoneElse' ? 'plans__option--active' : ''}`}>
+          <input type="radio" value="forSomeoneElse" checked={selection === 'forSomeoneElse'} onChange={handleSelectionChange} />
+          <span className="plans__option-title">Para alguien más</span>
+          <span className="plans__option-text">Realiza una cotización para uno de tus familiares o cualquier persona.</span>
         </label>
       </div>
 
-      <div>
-        {plansToShow.map(plan => (
-          <div key={plan.name} style={{ border: '1px solid #ccc', padding: '1rem', margin: '1rem 0' }}>
-            <h2>{plan.name}</h2>
-            <p>Costo del plan</p>
-            <p>${plan.price.toFixed(2)} al mes</p>
-            <ul>
-              {plan.description.map((desc, index) => (
-                <li key={index}>{desc}</li>
-              ))}
+      <div className="plans__cards">
+        {plansToShow.map((plan, idx) => (
+          <div key={plan.name} className="plans__card">
+            {idx === 1 && <div className="plans__badge">Plan recomendado</div>}
+            <h2 className="plans__card-name">{plan.name}</h2>
+            <p className="plans__card-label">COSTO DEL PLAN</p>
+            <p className="plans__card-price">${plan.price.toFixed(2)} al mes</p>
+            <ul className="plans__features">
+              {plan.description.map((desc, i) => <li key={i}>{desc}</li>)}
             </ul>
-            <button onClick={() => handleSelectPlan(plan)}>Seleccionar Plan</button>
+            <button className="plans__button" onClick={() => handleSelectPlan(plan)}>Seleccionar Plan</button>
           </div>
         ))}
       </div>
