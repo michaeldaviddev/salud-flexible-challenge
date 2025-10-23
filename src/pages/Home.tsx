@@ -32,7 +32,6 @@ const Home: React.FC = () => {
       const response = await fetch('https://rimac-front-end-challenge.netlify.app/api/user.json');
       const data = await response.json();
       
-      // Combine form data with fetched data and set it in the global state
       setUser({ 
         ...data, 
         documentNumber, 
@@ -47,7 +46,9 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>Home Page</h1>
+      <span>Seguro Salud Flexible</span>
+      <h1>Creado para ti y tu familia</h1>
+      <p>Tú eliges cuánto pagar. Ingresa tus datos, cotiza y recibe nuestra asesoría. 100% online.</p>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="documentNumber">Nro. de documento</label>

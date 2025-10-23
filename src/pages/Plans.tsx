@@ -9,7 +9,6 @@ const Plans: React.FC = () => {
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selection, setSelection] = useState<string | null>(null);
 
-  // Fetch plans on component mount
   useEffect(() => {
     const fetchPlans = async () => {
       try {
@@ -43,7 +42,6 @@ const Plans: React.FC = () => {
     return age;
   };
 
-  // Determine which plans to show based on the current selection
   let plansToShow: Plan[] = [];
   if (selection === 'forMe' && user) {
     const userAge = getAge(user.birthDay);
@@ -57,8 +55,8 @@ const Plans: React.FC = () => {
 
   return (
     <div>
-      <h1>Plans Page</h1>
-      {user && <p>Welcome, {user.name}</p>}
+      {user && <h1>{user.name} ¿Para quién deseas cotizar?</h1>}
+      <p>Selecciona la opción que se ajuste más a tus necesidades.</p>
 
       <div>
         <label>
@@ -85,13 +83,14 @@ const Plans: React.FC = () => {
         {plansToShow.map(plan => (
           <div key={plan.name} style={{ border: '1px solid #ccc', padding: '1rem', margin: '1rem 0' }}>
             <h2>{plan.name}</h2>
-            <p>Price: ${plan.price.toFixed(2)}</p>
+            <p>Costo del plan</p>
+            <p>${plan.price.toFixed(2)} al mes</p>
             <ul>
               {plan.description.map((desc, index) => (
                 <li key={index}>{desc}</li>
               ))}
             </ul>
-            <button onClick={() => handleSelectPlan(plan)}>Seleccionar</button>
+            <button onClick={() => handleSelectPlan(plan)}>Seleccionar Plan</button>
           </div>
         ))}
       </div>
