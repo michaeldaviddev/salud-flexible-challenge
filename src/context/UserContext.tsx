@@ -7,9 +7,19 @@ export interface User {
   birthDay: string;
 }
 
+// Define the structure of the plan data
+export interface Plan {
+  name: string;
+  price: number;
+  description: string[];
+  age: number;
+}
+
 interface UserContextType {
   user: User | null;
   setUser: (user: User | null) => void;
+  selectedPlan: Plan | null;
+  setSelectedPlan: (plan: Plan | null) => void;
 }
 
 // Create the context
@@ -18,9 +28,10 @@ export const UserContext = createContext<UserContextType | undefined>(undefined)
 // Create the provider component
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, selectedPlan, setSelectedPlan }}>
       {children}
     </UserContext.Provider>
   );

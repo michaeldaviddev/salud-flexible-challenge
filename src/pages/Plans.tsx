@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useUser } from '../context/UserContext';
-
-// Define an interface for a single plan
-interface Plan {
-  name: string;
-  price: number;
-  description: string[];
-  age: number;
-}
+import type { Plan } from '../context/UserContext';
 
 const Plans: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, setSelectedPlan } = useUser();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selection, setSelection] = useState<string | null>(null);
 
@@ -32,6 +25,11 @@ const Plans: React.FC = () => {
 
   const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelection(event.target.value);
+  };
+
+  const handleSelectPlan = (plan: Plan) => {
+    setSelectedPlan(plan);
+    navigate("/summary");
   };
 
   const getAge = (birthDay: string): number => {
@@ -56,10 +54,6 @@ const Plans: React.FC = () => {
       price: plan.price * 0.95,
     }));
   }
-
-  const goToSummary = () => {
-    navigate("/summary");
-  };
 
   return (
     <div>
@@ -97,14 +91,10 @@ const Plans: React.FC = () => {
                 <li key={index}>{desc}</li>
               ))}
             </ul>
-            <button>Seleccionar</button>
+            <button onClick={() => handleSelectPlan(plan)}>Seleccionar</button>
           </div>
         ))}
       </div>
-
-      <button onClick={goToSummary} style={{ marginTop: '1rem' }}>
-        Go to Summary
-      </button>
     </div>
   );
 };
