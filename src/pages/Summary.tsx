@@ -1,5 +1,6 @@
 import { useUser } from '../context/UserContext';
 import { Navigate } from 'react-router-dom';
+import './Summary.scss';
 
 const Summary: React.FC = () => {
   const { user, selectedPlan } = useUser();
@@ -9,24 +10,28 @@ const Summary: React.FC = () => {
   }
 
   return (
-    <div>
-      <h1>Resumen del seguro </h1>
+    <div className="summary">
+      <h1 className="summary__title">Resumen del seguro</h1>
       
-      <div style={{ border: '1px solid #ccc', padding: '1rem', margin: '1rem 0' }}>
-        <h2>Precios calculados para:</h2>
-        <h3>{user.name} {user.lastName}</h3>
-      </div>
-      
-      <div>
-        <h2>Responsable del pago</h2>
-        <p>DNI: {user.documentNumber}</p>
-        <p>Celular: {user.phoneNumber}</p>
-      </div>
+      <div className="summary__card">
+        <p className="summary__label">PRECIOS CALCULADOS PARA:</p>
+        <div className="summary__user">
+          <h2 className="summary__name">{user.name} {user.lastName}</h2>
+        </div>
+        
+        <div className="summary__divider"></div>
+        
+        <div className="summary__section">
+          <h3 className="summary__subtitle">Responsable de pago</h3>
+          <p className="summary__text">DNI: {user.documentNumber}</p>
+          <p className="summary__text">Celular: {user.phoneNumber}</p>
+        </div>
 
-      <div style={{ border: '1px solid #ccc', padding: '1rem', margin: '1rem 0' }}>
-        <h2>Plan elegido</h2>
-        <p>{selectedPlan.name}</p>
-        <p>Costo del plan: ${selectedPlan.price.toFixed(2)}</p>
+        <div className="summary__section">
+          <h3 className="summary__subtitle">Plan elegido</h3>
+          <p className="summary__text">{selectedPlan.name}</p>
+          <p className="summary__text">Costo del Plan: ${selectedPlan.price} al mes</p>
+        </div>
       </div>
     </div>
   );
