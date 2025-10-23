@@ -7,7 +7,6 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const { setUser } = useUser();
 
-  const [documentType, setDocumentType] = useState('DNI');
   const [documentNumber, setDocumentNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [policy1, setPolicy1] = useState(false);
